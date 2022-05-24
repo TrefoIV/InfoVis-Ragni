@@ -278,9 +278,12 @@ function swapAnimation(id_array) {
             svg.selectAll("g.insect-x-position")
                 .data(data)
                 .filter(d => d.id == id)
+                .transition()
+                .duration(1000)
                 .attr("transform", d => { return `translate(${xScale(d.x)}, ${init_y})` });
+
+            setTimeout(() => { draw(); }, 1000);
         });
-        draw();
 
     }, animation_time)
 }

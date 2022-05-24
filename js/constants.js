@@ -6,7 +6,7 @@ const head_range = [10, 50];
 const body_range = [10, 50];
 const eye_range = [25, 200];
 const legs_range = [25, 100];
-const init_y = -200;
+const init_y = 0;
 const animation_time = 3000;
 const legs_options = [
     {
