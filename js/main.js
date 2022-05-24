@@ -1,7 +1,7 @@
 let drawing_area;
 let data;
 
-let animation_type = 0;
+let animation_type = 1;
 let anim_function;
 let draw_axis = false;
 
@@ -25,6 +25,7 @@ async function loadData() {
 			// Do something with your data
 			data = d;
 			setTimeout(() => {
+				changeAnimationType();
 				draw();
 			}, 0);
 
@@ -44,7 +45,6 @@ function copy(to, from, include = [], exclude = []) {
 
 function swapValues(event) {
 	let id = event.path[2].id;
-	console.log(id);
 	let me = data.findIndex(x => "insect" + x.id == id);
 	let other = Math.floor(Math.random() * (data.length - 1));
 	if (other == me) {
@@ -123,7 +123,6 @@ window.addEventListener("resize", () => {
 		draw();
 });
 window.onload = () => {
-	changeAnimationType();
 	drawing_area = document.getElementById("draw-area")
 	loadData()
 }

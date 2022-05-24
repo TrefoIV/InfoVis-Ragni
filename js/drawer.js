@@ -26,7 +26,7 @@ function draw() {
         .range(body_range)
 
 
-    let margin = computeMarginNew(height, width, data, HeadScale, BodyScale, EyeScale, LegScale);
+    let margin = computeMargin(height, width, data, HeadScale, BodyScale, EyeScale, LegScale);
 
     xScale = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.x)])
@@ -64,13 +64,18 @@ function draw() {
         .attr("class", "insect-body")
         .style("fill", d => colors[d.color])
         .style("stroke", d => stroke_colors[d.color])
-        .style("z-index", 2);
+        .style("z-index", 2)
+        .attr("position", "absolute")
+        .attr("cx", 0);
 
     insects.append("circle")
         .attr("class", "insect-head")
         .style("fill", d => colors[d.color])
         .style("stroke", d => stroke_colors[d.color])
-        .style("z-index", 2);
+        .style("z-index", 2)
+        .attr("position", "absolute")
+        .attr("cx", 0)
+        .attr("cy", 0);
 
     insects
         .append("g")
@@ -94,7 +99,9 @@ function draw() {
     insects
         .append("image")
         .attr("class", "insect-eye")
-        .style("z-index", 1);
+        .style("z-index", 1)
+        .attr("position", "absolute")
+        .attr("xlink:href", "./sources/eye-2.png");
 
 
     //UPDATE
@@ -112,17 +119,12 @@ function draw() {
         .attr("transform", d => { return `translate(0, ${yScale(d.y) - init_y})` });
 
     insects.selectAll(".insect-body")
-        .attr("position", "absolute")
-        .attr("cx", 0)
         .transition()
         .duration(animation_time)
         .attr("cy", d => { return - 1 * (HeadScale(d.head) + 0.95 * BodyScale(d.body)) })
         .attr("r", d => BodyScale(d.body));
 
     insects.selectAll(".insect-head")
-        .attr("position", "absolute")
-        .attr("cx", 0)
-        .attr("cy", 0)
         .transition()
         .duration(animation_time)
         .attr("r", d => HeadScale(d.head))
@@ -130,8 +132,6 @@ function draw() {
     drawLegs(insects, LegScale, HeadScale);
 
     insects.selectAll(".insect-eye")
-        .attr("position", "absolute")
-        .attr("xlink:href", "./sources/eye-2.png")
         .transition()
         .duration(animation_time)
         .attr("x", d => -1 * EyeScale(d.eye) / 2)
@@ -207,31 +207,12 @@ function computeEyeXPos(d, LenScale, EyeScale) {
     return insect_len - eye_dim;
 }
 
+
 function computeMargin(height, width, data, HeadScale, BodyScale, EyeScale, LegScale) {
-    let max_data_x = d3.max(data, x => { return x.x + HeadScale(x.head) + LegScale(x.leg) });
-    let max_x = d3.max(data, d => d.x);
-    let sfora_x = max_data_x - max_x;
-
-    let max_data_y = d3.max(data, x => { return x.y + HeadScale(x.head) });
-    let max_y = d3.max(data, d => d.y);
-    let sfora_y = max_data_y - max_y;
-
-    let margin = {
-        margin_x: Math.max(margin__perc_x * width, sfora_x),
-        margin_y_up: margin__perc_y * height,
-        margin_y_down: Math.max(margin__perc_y * height, sfora_y)
-    };
-
-    return margin;
-
-}
-
-function computeMarginNew(height, width, data, HeadScale, BodyScale, EyeScale, LegScale) {
     let max_dim_x = d3.max(data, x => {
         let head = HeadScale(x.head);
         return Math.max(head + LegScale(x.leg), EyeScale(x.eye) / 2, BodyScale(x.body));
     });
-    console.log(max_dim_x);
 
     let max_dim_y_up = d3.max(data, x => {
         let head = HeadScale(x.head);
@@ -246,7 +227,7 @@ function computeMarginNew(height, width, data, HeadScale, BodyScale, EyeScale, L
 
     let margin = {
         margin_x: Math.max(margin__perc_x * width, max_dim_x),
-        margin_y_up: max_dim_y_down,
+        margin_y_up: max_dim_y_up,
         margin_y_down: max_dim_y_down
     };
 
