@@ -1,0 +1,93 @@
+body {
+    /*background-color: #44d49c;*/
+    background-image: url("../sources/cobweb.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#draw-area {
+    height: 100%;
+    width: 100%;
+
+}
+
+.draw-section {
+    height: 100%;
+    width: 90%;
+    float: left;
+}
+
+.control-pane {
+    width: 10%;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+#data-values {
+    border-style: solid;
+    border-color: yellowgreen;
+    border-width: 2px;
+    width: 100%;
+}
+
+p {
+    color: yellowgreen;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+button {
+    margin: 5px;
+}
+
+g.x-axis path {
+    stroke: white;
+}
+
+g.tick line {
+    stroke: white;
+}
+
+g.tick text {
+    fill: white;
+}
+
+g.y-axis path {
+    stroke: white;
+}
+
+section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.insect-eye {
+    z-index: 3;
+    color: pur;
+}
+
+circle {
+    stroke-width: 2px;
+}
+
+.insect g path {
+    stroke-linecap: round;
+    stroke-linejoin: bevel;
+    stroke: rgb(0, 0, 0);
+    fill-rule: nonzero;
+    paint-order: stroke;
+    fill: none;
+    stroke-width: 1.5px;
+    z-index: 2;
+}
+
+.insect-body {
+    z-index: 1;
+}

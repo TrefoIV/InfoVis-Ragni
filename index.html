@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/main-style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./js/constants.js"></script>
+    <script src="./js/drawer.js"></script>
+    <script src="./js/main.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <section class="draw-section">
+            <svg id="draw-area">
+            </svg>
+        </section>
+        <div class="control-pane">
+
+            <div id="data-values">
+                <p>Data values:</p>
+                <p id="x-display">x: </p>
+                <p id="y-display">y: </p>
+                <p id="head-display">head: </p>
+                <p id="body-display">body: </p>
+                <p id="eye-display">eye: </p>
+                <p id="leg-display">leg: </p>
+            </div>
+            <button onclick="removeOne()">Remove one point</button>
+            <button onclick="changeAnimationType()">Change animation type</button>
+            <button onclick="changeDrawAxis()">Draw Axis</button>
+
+        </div>
+    </div>
+</body>
+
+</html>
